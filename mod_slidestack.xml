@@ -40,7 +40,13 @@
 			stripext="1"
 			filter="\.php$"
 			exclude="^_" />
-			
+		
+		<param name="contentId"
+			type="text"
+			label="JEV_SLIDESTACK_CONTENT_ID"
+			description="JEV_SLIDESTACK_CONTENT_ID_DESCRIPTION"
+			default="" />
+		
 		<param name="categories"
 			type="categories"
 			default=""

@@ -10,7 +10,6 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 $document = &JFactory::getDocument();
-$evl = new evolveLibrary;
 
 $moduleId = ltrim($params->get('modulename'));
 $showtitle = $params->get('showtitle', true);

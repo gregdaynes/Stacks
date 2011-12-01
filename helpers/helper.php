@@ -12,6 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 class SlideStackHelper extends JModuleHelper
 {
 	var $db		   = null;
+	var $cid	   = null;
 	var $catid	   = null;
 	var $frontpage = null;
 	var $itemcount = null;
@@ -25,8 +26,12 @@ class SlideStackHelper extends JModuleHelper
 		$this->db		 = &JFactory::getDBO();
 		$this->params	 = $params;
 		// module params
-		$this->catid	 = $params->get('categories'); // categories to look at
-		$this->frontpage = $params->get('frontpage', false); // frontpage items only
+		$this->cid = $params->get('contentId', null);
+		if ($this->cid == null) {
+			$this->catid	 = $params->get('categories'); // categories to look at
+			$this->frontpage = $params->get('frontpage', false); // frontpage items only
+		};
+		
 		$itemcount = $params->get('itemcount', 5 ); // Number of items
 		$offset	 = $params->get('offset', 0 ); // offset number of items returned
 		
@@ -74,8 +79,11 @@ class SlideStackHelper extends JModuleHelper
 		$this->user	= &JFactory::getUser();
 		$this->aid	= $this->user->get('aid');
 		
+		if ($this->cid) {
+			$where[] = 'content.id = '.$this->cid;
+		}  
 		// setup categories
-		if (!$this->frontpage) { // not frontpage only items
+		else if (!$this->frontpage) { // not frontpage only items
 			if (is_array($this->catid)) {
 				$this->catid = implode(' OR catid = ', $this->catid); // ## OR catid = ##
 			}

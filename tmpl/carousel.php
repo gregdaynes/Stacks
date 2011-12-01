@@ -217,10 +217,10 @@ if ($params->get('crop_mode') == 'js') {
 				if ($showtitle) { 
 					// link title
 					if ($linktitle) {
-						$item->title_html = '<a class="titleLink" href="'.$item->link.'">'.$item->title.'</a>';
+						$item->title = '<a class="titleLink" href="'.$item->link.'">'.$item->title.'</a>';
 					}
 					
-					$item->title_html = '<h3>'.$item->title_html.'</h3>';
+					$item->title_html = '<h3>'.$item->title.'</h3>';
 				} else {
 					$item->title_html = null;
 				}
@@ -229,10 +229,10 @@ if ($params->get('crop_mode') == 'js') {
 				if ($showtext) { 
 					// link title
 					if ($linktext) {
-						$item->introtext_html = '<a class="bodyLink" href="'.$item->link.'">'.$item->introtext.'</a>';
+						$item->introtext = '<a class="bodyLink" href="'.$item->link.'">'.$item->introtext.'</a>';
 					}
 					
-					$item->introtext_html = '<span class="text">'.$item->introtext_html.'</span>';
+					$item->introtext_html = '<span class="text">'.$item->introtext.'</span>';
 				} else {
 					$item->introtext_html = null;
 				}
