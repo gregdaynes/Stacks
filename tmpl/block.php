@@ -35,3 +35,4 @@ $readmoretext	= $params->get('readmoretext', true);
 </tr>
 <!-- /ARTICLE -->
 <?php }
+exit;
