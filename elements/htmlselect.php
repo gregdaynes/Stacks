@@ -1,11 +1,14 @@
 <?php // no direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+JHTML::_('behavior.mootools');
+JHTML::_('behavior.modal');
+
 /**
  * Renders a multiple item select element
  *
  */
-class JElementCategories extends JElement
+class JElementHTMLSelect extends JElement
 {
         /**
         * Element name
@@ -13,7 +16,7 @@ class JElementCategories extends JElement
         * @access       protected
         * @var          string
         */
-        var    $_name = 'Categories';
+        var    $_name = 'select';
  
         function fetchElement($name, $value, &$node, $control_name)
         {
@@ -23,18 +26,6 @@ class JElementCategories extends JElement
                 // Construct an array of the HTML OPTION statements.
                 $options = array ();
                 
-                $db = & JFactory::getDBO();
-                $query = 'SELECT cat.id AS id, cat.title AS title, sec.title AS section FROM #__categories AS cat JOIN #__sections AS sec ON sec.id = cat.section ORDER BY sec.title, cat.title ASC';
-                $db->setQuery($query);
-                $categories = $db->loadObjectList();
-                                
-                foreach ($categories as $option)
-                {
-                        $val = $option->id;
-                        $text = $option->section .' / '. $option->title;
-                        $options[] = JHTML::_('select.option', $val, JText::_($text));
-                }
- 
                 // Construct the various argument calls that are supported.
                 $attribs       = ' ';
                 if ($v = $node->attributes( 'size' )) {
@@ -52,6 +43,7 @@ class JElementCategories extends JElement
                 }
  
                 // Render the HTML SELECT list.
-                return JHTML::_('select.genericlist', $options, $ctrl, $attribs, 'value', 'text', $value, $control_name.$name );
+                // return JHTML::_('select.genericlist', $options, $ctrl, $attribs, 'value', 'text', $value, $control_name.$name );
+        		return "<input type=\"text\" id=\"select\" id=\"select\" /><div class=\"button2-left\"><div class=\"blank\"><a class='modal' title='Select an Article' href='index.php?option=com_content&task=element&tmpl=component&object=id' rel='{handler: \"iframe\", size: {x: 650, y: 375}}'>Select</a></div></div>";
         }
 }

@@ -1,12 +1,4 @@
-<?php
-/**
- * @version   $Id: helper.php 567 2011-01-20 17:50:07Z media $
- * @package   jEvolve.SlideStack
- * @copyright Copyright (C) 2010 jEvolve, LLC. All rights reserved.
- * @license   GNU General Public License
- */
- 
-// no direct access
+<?php // no direct access
 defined('_JEXEC') or die('Restricted access');
 
 class SlideStackHelper extends JModuleHelper

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <install type="module" version="1.5" method="upgrade">
-	<name>Slidestack</name>
+	<name>Stacks</name>
 	<author>Gregory Daynes</author>
 	<creationDate>Novemeber 2010</creationDate>
 	<copyright>Copyright (C) 2010 JEvolve.net. All rights reserved.</copyright>
 	<license>GNU General Public License</license>
 	<authorEmail>info@jevolve.net</authorEmail>
 	<authorUrl>http://jevolve.net</authorUrl>
-	<version>$Rev: 593 $</version>
-	<description>JEV_SLIDESTACK_DESCRIPTION</description>
+	<version></version>
+	<description>JEV_STACKS_DESCRIPTION</description>
 	
 	<files>
-		<filename module="mod_slidestack">mod_slidestack.php</filename>
-		<filename>en-GB.mod_slidestack.ini</filename>
+		<filename module="mod_stacks">mod_stacks.php</filename>
+		<filename>en-GB.mod_stacks.ini</filename>
 		<folder>helpers</folder>
 		<folder>elements</folder>
 		<folder>tmpl</folder>
 	</files>
 	
 	<languages>
-		<language tag="en-GB">en-GB.mod_slidestack.ini</language>
+		<language tag="en-GB">en-GB.mod_stacks.ini</language>
 	</languages>
 	
-	<params addpath="/modules/mod_slidestack/elements">
+	<params addpath="/modules/mod_stacks/elements">
 		<param name="moduleclass_sfx"
 			type="text"
 			default=""
-		label="JEV_SLIDESTACK_MODULE_SUFFIX"
+		label="JEV_STACKS_MODULE_SUFFIX"
 			description="PARAMMODULECLASSSUFFIX" />
 		
 		<param name="layout"
 			type="filelist"
-			label="JEV_SLIDESTACK_LAYOUT"
-			description="JEV_SLIDESTACK_LAYOUT_DESCRIPTION"
-			directory="/modules/mod_slidestack/tmpl"
+			label="JEV_STACKS_LAYOUT"
+			description="JEV_STACKS_LAYOUT_DESCRIPTION"
+			directory="/modules/mod_stacks/tmpl"
 			default="default"
 			hide_default="1"
 			hide_none="1"
@@ -43,22 +43,34 @@
 		
 		<param name="contentId"
 			type="text"
-			label="JEV_SLIDESTACK_CONTENT_ID"
-			description="JEV_SLIDESTACK_CONTENT_ID_DESCRIPTION"
+			label="JEV_STACKS_CONTENT_ID"
+			description="JEV_STACKS_CONTENT_ID_DESCRIPTION"
 			default="" />
+			
+		<param name="htmlselect"
+			type="htmlselect"
+			default=""
+			label=""
+			description="" />
+			
+		<param name="selectscript"
+			type="selectscript"
+			default=""
+			label=""
+			description="" />
 		
 		<param name="categories"
 			type="categories"
 			default=""
 			multiple="multiple"
-			label="JEV_SLIDESTACK_CATEGORIES"
-			description="JEV_SLIDESTACK_CATEGORIES_DESCRIPTION" />
+			label="JEV_STACKS_CATEGORIES"
+			description="JEV_STACKS_CATEGORIES_DESCRIPTION" />
 		
 		<param name="frontpage"
 			type="radio"
 			default="0"
-			label="JEV_SLIDESTACK_FRONTPAGE"
-			description="JEV_SLIDESTACK_FRONTPAGE_DESCRIPTION">
+			label="JEV_STACKS_FRONTPAGE"
+			description="JEV_STACKS_FRONTPAGE_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -66,8 +78,8 @@
 		<param name="readmore"
 			type="radio"
 			default="0"
-			label="JEV_SLIDESTACK_READ_MORE"
-			description="JEV_SLIDESTACK_READ_MORE_DESCRIPTION">
+			label="JEV_STACKS_READ_MORE"
+			description="JEV_STACKS_READ_MORE_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -75,8 +87,8 @@
 		<param name="showtitle"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_DISPLAY_TITLE"
-			description="JEV_SLIDESTACK_DISPLAY_TITLE_DESCRIPTION">
+			label="JEV_STACKS_DISPLAY_TITLE"
+			description="JEV_STACKS_DISPLAY_TITLE_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -84,8 +96,8 @@
 		<param name="showtext"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_DISPLAY_TEXT"
-			description="JEV_SLIDESTACK_DISPLAY_TEXT_DESCRIPTION">
+			label="JEV_STACKS_DISPLAY_TEXT"
+			description="JEV_STACKS_DISPLAY_TEXT_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -93,8 +105,8 @@
 		<param name="linktext"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_LINK_TEXT"
-			description="JEV_SLIDESTACK_LINK_TEXT_DESCRIPTION">
+			label="JEV_STACKS_LINK_TEXT"
+			description="JEV_STACKS_LINK_TEXT_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -102,8 +114,8 @@
 		<param name="linktitle"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_LINK_TITLE"
-			description="JEV_SLIDESTACK_LINK_TITLE_DESCRIPTION">
+			label="JEV_STACKS_LINK_TITLE"
+			description="JEV_STACKS_LINK_TITLE_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -111,8 +123,8 @@
 		<param name="image"
 			type="radio"
 			default="0"
-			label="JEV_SLIDESTACK_IMAGE"
-			description="JEV_SLIDESTACK_IMAGE_DESCRIPTION">
+			label="JEV_STACKS_IMAGE"
+			description="JEV_STACKS_IMAGE_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -120,20 +132,20 @@
 		<param name="imagewidth"
 			type="text"
 			default="100"
-			label="JEV_SLIDESTACK_IMAGE_WIDTH"
-			description="JEV_SLIDESTACK_IMAGE_WIDTH_DESCRIPTION" />
+			label="JEV_STACKS_IMAGE_WIDTH"
+			description="JEV_STACKS_IMAGE_WIDTH_DESCRIPTION" />
 			
 		<param name="imageheight"
 			type="text"
 			default="100"
-			label="JEV_SLIDESTACK_IMAGE_HEIGHT"
-			description="JEV_SLIDESTACK_IMAGE_HEIGHT_DESCRIPTION" />
+			label="JEV_STACKS_IMAGE_HEIGHT"
+			description="JEV_STACKS_IMAGE_HEIGHT_DESCRIPTION" />
 		
 		<param name="tabs"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_TABS"
-			description="JEV_SLIDESTACK_TABS_DESCRIPTION">
+			label="JEV_STACKS_TABS"
+			description="JEV_STACKS_TABS_DESCRIPTION">
 			<option value="0">NONE</option>
 			<option value="1">TITLES</option>
 			<option value="2">NUMBERS</option>
@@ -143,8 +155,8 @@
 		<param name="itemcount"
 			type="text"
 			default="10"
-			label="JEV_SLIDESTACK_NUMBER_OF_ITEMS"
-			description="JEV_SLIDESTACK_NUMBER_OF_ITEMS_DESCRIPTION" />
+			label="JEV_STACKS_NUMBER_OF_ITEMS"
+			description="JEV_STACKS_NUMBER_OF_ITEMS_DESCRIPTION" />
 		
 		<param name="order" type="list" default="ordering ASC" label="ordering" description="">
 			<option value="content.ordering ASC">Manual: Ascending</option>
@@ -160,14 +172,14 @@
 		<param name="readmoretext"
 			type="text"
 			default="[read more]"
-			label="JEV_SLIDESTACK_READ_MORE_TEXT"
-			description="JEV_SLIDESTACK_READ_MORE_TEXT_DESCRIPTION" />
+			label="JEV_STACKS_READ_MORE_TEXT"
+			description="JEV_STACKS_READ_MORE_TEXT_DESCRIPTION" />
 				
 		<param name="animated"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_ANIMATED"
-			description="JEV_SLIDESTACK_ANIMATED_DESCRIPTION">
+			label="JEV_STACKS_ANIMATED"
+			description="JEV_STACKS_ANIMATED_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -175,14 +187,14 @@
 		<param name="displaytime"
 			type="text"
 			default="5"
-			label="JEV_SLIDESTACK_DISPLAY_TIME"
-			description="JEV_SLIDESTACK_DISPLAY_TIME_DESCRIPTION" />
+			label="JEV_STACKS_DISPLAY_TIME"
+			description="JEV_STACKS_DISPLAY_TIME_DESCRIPTION" />
 
 		<param name="arrows"
 			type="radio"
 			default="0"
-			label="JEV_SLIDESTACK_ARROWS"
-			description="JEV_SLIDESTACK_ARROWS_DESCRIPTION">
+			label="JEV_STACKS_ARROWS"
+			description="JEV_STACKS_ARROWS_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -190,8 +202,8 @@
 		<param name="autoplay"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_AUTOPLAY"
-			description="JEV_SLIDESTACK_AUTOPLAY_DESCRIPTION">
+			label="JEV_STACKS_AUTOPLAY"
+			description="JEV_STACKS_AUTOPLAY_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -202,26 +214,26 @@
 		<param name="itemid"
 			type="text"
 			default=""
-			label="JEV_SLIDESTACK_ITEM_ID"
-			description="JEV_SLIDESTACK_ITEM_ID_DESCRIPTION" />
+			label="JEV_STACKS_ITEM_ID"
+			description="JEV_STACKS_ITEM_ID_DESCRIPTION" />
 		
 		<param name="modulename"
 			type="text"
 			default=""
-			label="JEV_SLIDESTACK_MODULE_NAME"
-			description="JEV_SLIDESTACK_MODULE_NAME_DESCRIPTION" />
+			label="JEV_STACKS_MODULE_NAME"
+			description="JEV_STACKS_MODULE_NAME_DESCRIPTION" />
 		
 		<param name="slideheight"
 			type="text"
 			default="100"
-			label="JEV_SLIDESTACK_SLIDE_HEIGHT"
-			description="JEV_SLIDESTACK_SLIDE_HEIGHT_DESCRIPTION" />
+			label="JEV_STACKS_SLIDE_HEIGHT"
+			description="JEV_STACKS_SLIDE_HEIGHT_DESCRIPTION" />
 		
 		<param name="customcss"
 			type="radio"
 			default="0"
-			label="JEV_SLIDESTACK_CUSTOM_CSS"
-			description="JEV_SLIDESTACK_CUSTOM_CSS_DESCRIPTION">
+			label="JEV_STACKS_CUSTOM_CSS"
+			description="JEV_STACKS_CUSTOM_CSS_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -229,44 +241,44 @@
 		<param name="lengthtitle"
 			type="text"
 			default="60"
-			label="JEV_SLIDESTACK_LENGTH_TITLE"
-			description="JEV_SLIDESTACK_LENGTH_TITLE_DESCRIPTION" />
+			label="JEV_STACKS_LENGTH_TITLE"
+			description="JEV_STACKS_LENGTH_TITLE_DESCRIPTION" />
 			
 		<param name="truntitle"
 			type="text"
 			default=""
-			label="JEV_SLIDESTACK_TRUNC_TITLE"
-			description="JEV_SLIDESTACK_TRUNC_TITLE_DESCRIPTION" />
+			label="JEV_STACKS_TRUNC_TITLE"
+			description="JEV_STACKS_TRUNC_TITLE_DESCRIPTION" />
 		
 		<param name="lengthtext"
 			type="text"
 			default="250"
-			label="JEV_SLIDESTACK_LENGTH_TEXT"
-			description="JEV_SLIDESTACK_LENGTH_TEXT_DESCRIPTION" />
+			label="JEV_STACKS_LENGTH_TEXT"
+			description="JEV_STACKS_LENGTH_TEXT_DESCRIPTION" />
 		
 		<param name="truntext"
 			type="text"
 			default=""
-			label="JEV_SLIDESTACK_TRUNC_TEXT"
-			description="JEV_SLIDESTACK_TRUNC_TEXT_DESCRIPTION" />
+			label="JEV_STACKS_TRUNC_TEXT"
+			description="JEV_STACKS_TRUNC_TEXT_DESCRIPTION" />
 		
 		<param name="offset"
 			type="text"
 			default="0"
-			label="JEV_SLIDESTACK_OFFSET"
-			description="JEV_SLIDESTACK_OFFSET_DESCRIPTION" />
+			label="JEV_STACKS_OFFSET"
+			description="JEV_STACKS_OFFSET_DESCRIPTION" />
 				
 		<param name="transitiontime"
 			type="text"
 			default="0.25"
-			label="JEV_SLIDESTACK_TRANSITION_TIME"
-			description="JEV_SLIDESTACK_TRANSITION_TIME_DESCRIPTION" />
+			label="JEV_STACKS_TRANSITION_TIME"
+			description="JEV_STACKS_TRANSITION_TIME_DESCRIPTION" />
 		
 		<param name="transitiontype"
 			type="list"
 			default="linear"
-			label="JEV_SLIDESTACK_TRANSITION_TYPE"
-			description="JEV_SLIDESTACK_TRANSITION_TYPE_DESCRIPTION">
+			label="JEV_STACKS_TRANSITION_TYPE"
+			description="JEV_STACKS_TRANSITION_TYPE_DESCRIPTION">
 			<option value="none">NONE</option>
 			<option value="crossFade">CROSSFADE</option>
 			<option value="fadeThroughBackground">FADETHROUGHBACKGROUND</option>
@@ -283,19 +295,19 @@
 		<param name="crop_mode"
 			type="list"
 			default="adaptive"
-			label="JEV_SLIDESTACK_CROP_MODE"
-			description="JEV_SLIDESTACK_CROP_MODE_DESCRIPTION">
-			<option value="js">JEV_SLIDESTACK_RESIZE_JS</option>
-			<option value="basic">JEV_SLIDESTACK_RESIZE_BASIC</option>
-			<option value="adaptive">JEV_SLIDESTACK_RESIZE_ADAPTIVE</option>
-			<option value="crop">JEV_SLIDESTACK_CROP</option>
+			label="JEV_STACKS_CROP_MODE"
+			description="JEV_STACKS_CROP_MODE_DESCRIPTION">
+			<option value="js">JEV_STACKS_RESIZE_JS</option>
+			<option value="basic">JEV_STACKS_RESIZE_BASIC</option>
+			<option value="adaptive">JEV_STACKS_RESIZE_ADAPTIVE</option>
+			<option value="crop">JEV_STACKS_CROP</option>
 			</param>
 			
 		<param name="resizerjs"
 			type="radio"
 			default="1"
-			label="JEV_SLIDESTACK_INCLUDE_RESIZER_JS"
-			description="JEV_SLIDESTACK_RESIZER_JS_DESCRIPTION">
+			label="JEV_STACKS_INCLUDE_RESIZER_JS"
+			description="JEV_STACKS_RESIZER_JS_DESCRIPTION">
 			<option value="0">NO</option>
 			<option value="1">YES</option>
 			</param>
@@ -303,17 +315,17 @@
 		<param name="image_cache"
 			type="list"
 			default="1"
-			label="JEV_SLIDESTACK_IMAGE_CACHING"
-			description="JEV_SLIDESTACK_IMAGE_CACHING_DESCRIPTION">
-			<option value="0">JEV_SLIDESTACK_NO_CACHING</option>
-			<option value="1">JEV_SLIDESTACK_CACHE_IMAGES</option>
+			label="JEV_STACKS_IMAGE_CACHING"
+			description="JEV_STACKS_IMAGE_CACHING_DESCRIPTION">
+			<option value="0">JEV_STACKS_NO_CACHING</option>
+			<option value="1">JEV_STACKS_CACHE_IMAGES</option>
 			</param>
 			
 		<param name="cache"
         	type="list"
         	default="1"
-        	label="JEV_SLIDESTACK_CACHING"
-        	description="JEV_SLIDESTACK_CACHING_DESCRIPTION">
+        	label="JEV_STACKS_CACHING"
+        	description="JEV_STACKS_CACHING_DESCRIPTION">
         	<option value="0">NO CACHING</option>
          	<option value="1">USE GLOBAL</option>
     		</param>
@@ -321,8 +333,8 @@
     	<param name="clearfix"
     		type="text"
     		default="clear"
-    		label="JEV_SLIDESTACK_CLEARFIX_CLASS"
-    		description="JEV_SLIDESTACK_CLEARFIX_CLASS_DESCRIPTION" />
+    		label="JEV_STACKS_CLEARFIX_CLASS"
+    		description="JEV_STACKS_CLEARFIX_CLASS_DESCRIPTION" />
     		
 	</params>
 </install>

@@ -1,12 +1,4 @@
-<?php
-/**
- * @version	$Id: carousel.php 777 2011-05-16 22:37:16Z media $
- * @package	jEvolve.SlideStack
- * @copyright  Copyright (C) 2010 jEvolve, LLC. All rights reserved.
- * @license	GNU General Public License
- */
-
-// no direct access
+<?php // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 $document = &JFactory::getDocument();
