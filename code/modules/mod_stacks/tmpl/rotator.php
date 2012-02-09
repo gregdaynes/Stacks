@@ -3,7 +3,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 $document = &JFactory::getDocument();
 
-$moduleId = ltrim($params->get('modulename'));
+$moduleId = ltrim($params->get('module_name'));
 $autoplay = $params->get('autoplay', 1);
 if ($autoplay == 0) {
 	$autoplay = 'false';
@@ -26,7 +26,7 @@ $readmore		= $params->get('readmore', true);
 if ($params->get('moduleId')) {
 	$randVar = ltrim($params->get('moduleId'));
 } else {
-	$randVar = 'id'.$helper->generateUniqueCode("5");
+	$randVar = 'id'.$content_helper->generateUniqueCode("5");
 }
 
 
