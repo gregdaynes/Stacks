@@ -14,7 +14,7 @@ class k2Helper extends StackHelper
 		$db				= &JFactory::getDBO();
 		$params			= $this->_params;
 		$this->_db		= $db;
-		$this->_catid	= $params->get('k2_category_id', array(0));
+		$this->_catid	= $params->get('k2_categories', array(0));
 		
 		if (!is_array($this->_catid)) {
 			$this->_catid = array($this->_catid);
@@ -41,7 +41,7 @@ class k2Helper extends StackHelper
 		// setup some vars
 		$params	= $this->_params;
 		$db		= $this->_db;
-		$itemCount = $params->get('itemcount', 10); // number of items
+		$itemCount = $params->get('item_count', 10); // number of items
 		
 		$query = $db->getQuery(true);
 		$query = 'SELECT items.* '
@@ -69,7 +69,12 @@ class k2Helper extends StackHelper
 		$null_date  = $db->getNullDate();
 		$now		= $date->toMySQL();
 		
-		$where[] = '(items.catid = '.implode(' OR items.catid = ', $this->_catid).')';	
+		if ($params->get('featured_content_only', 0)) {
+			$where[] = 'items.featured = 1';
+		} else {
+			$where[] = '(items.catid = '.implode(' OR items.catid = ', $this->_catid).')';	
+		}
+		
 		$where[] = 'items.published = 1'; // published items only
 		$where[] = '(items.publish_up = "'.$null_date.'" OR items.publish_up <= "'.$now.'")';
 		$where[] = '(items.publish_up = "'.$null_date.'" OR items.publish_up <= "'.$now.'")';
@@ -81,7 +86,7 @@ class k2Helper extends StackHelper
 	private function _buildQueryOrder()
 	{
 		$params = $this->_params;
-		$order = ' ORDER BY '.$params->get( 'order', 'items.publish_up DESC' );
+		$order = ' ORDER BY items.'.$params->get( 'order', 'publish_up' ).' '.$params->get('order_direction', 'DESC');
 		
 		return (string) $order;
 	}

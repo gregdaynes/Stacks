@@ -7,282 +7,352 @@
 	<license>GNU General Public License</license>
 	<authorEmail>info@jevolve.net</authorEmail>
 	<authorUrl>http://jevolve.net</authorUrl>
-	<version>1.0.6</version>
-	<description>MOD_STACKS_XML_DESCRIPTION</description>
+	<version>1.0.8</version>
+	<description>STACKS_XML_DESCRIPTION</description>
 	
 	<files>
 		<filename module="mod_stacks">mod_stacks.php</filename>
 		<filename>language/en-GB/en-GB.mod_stacks.ini</filename>
 		<folder>helpers</folder>
 		<folder>tmpl</folder>
+		<folder>elements</folder>
 	</files>
 	
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_stacks/elements/">
 			
-			<fieldset name="Basic_Options">
-				<field name="content_provider" type="list" default="joomla" label="CONTENT_PROVIDER" description="CONTENT_PROVIDER_DESCRIPTION">
-					<option value="joomla">Joomla</option>
-					<option value="k2">K2</option>
-				</field>
+			<fieldset name="General">
 				
 				<field name="moduleclass_sfx"
-					type="text"
-					default=""
-					label="STACK_MODULE_CLASS_SUFFIX"
-					description="" />
-	
-			</fieldset>
-			
-			<fieldset name="Joomla">
-				<field name="category_id" type="category" extension="com_content"  multiple="multiple" default="" label="JOOMLA_CATEGORY" description=""/>
-			</fieldset>
-			
-			<fieldset name="K2">
-				<field name="k2_category_id" type="categoriesmultiple" default="" label="K2_SELECT_ONE_OR_MORE_CATEGORIES" description=""/>
+					   type="text"
+					   default=""
+					   label="MODULE_CLASS_SUFFIX"
+					   description="MODULE_CLASS_SUFFIX_DESCRIPTION" />
+				
+				<field name="template"
+					   type="filelist"
+					   label="TEMPLATE"
+					   description="TEMPLATE_DESCRIPTION"
+					   directory="/modules/mod_stacks/tmpl"
+					   default="default"
+					   hide_default="1"
+					   hide_none="1"
+					   stripext="1"
+					   filter="\.php$"
+					   exclude="^_" />
+				
+				<field name="content_provider"
+					   type="list"
+					   default="joomla"
+					   label="CONTENT_PROVIDER"
+					   description="CONTENT_PROVIDER_DESCRIPTION">
+					   <option value="joomla">Joomla</option>
+					   <option value="k2">K2</option>
+					   </field>
+				
+				<field name="joomla_categories"
+					   type="category"
+					   extension="com_content" 
+					   multiple="multiple"
+					   default=""
+					   label="JOOMLA_CATEGORIES"
+					   description="JOOMLA_CATEGORIES_DESCRIPTION" />
+				
+				<field name="k2_categories"
+					   type="categoriesmultiple"
+					   default=""
+					   label="K2_CATEGORIES"
+					   description="K2_CATEGORIES_DESCRIPTION" />
+				
+				<field name="featured_content_only"
+					   type="radio"
+					   default="1"
+					   label="FEATURED_CONTENT_ONLY"
+					   description="FEATURED_CONTENT_ONLY_DESCRIPTION">
+					   <option value="0">NO</option>
+					   <option value="1">YES</option>
+					   </field>
 			</fieldset>
 						
-			<fieldset name="layout">
-				<field name="template"
-					type="filelist"
-					label="STACK_TEMPLATE"
-					description=""
-					directory="/modules/mod_stacks/tmpl"
-					default="default"
-					hide_default="1"
-					hide_none="1"
-					stripext="1"
-					filter="\.php$"
-					exclude="^_" />
+			<fieldset name="content">
 					
-				<field name="readmore"
-					type="radio"
-					default="0"
-					label="STACK_READ_MORE"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+				<field name="display_read_more"
+					   type="list"
+					   default="0"
+					   label="DISPLAY_READ_MORE"
+					   description="DISPLAY_READ_MORE_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
 				
-				<field name="showtitle"
-					type="radio"
-					default="1"
-					label="STACK_DISPLAY_TITLE"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
-					
-				<field name="showtext"
-					type="radio"
-					default="1"
-					label="STACK_DISPLAY_TEXT"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
-					
-				<field name="linktext"
-					type="radio"
-					default="1"
-					label="STACK_LINK_TEXT"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
-					
-				<field name="linktitle"
-					type="radio"
-					default="1"
-					label="STACK_LINK_TITLE"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+				<field name="display_title"
+					   type="list"
+					   default="1"
+					   label="DISPLAY_TITLE"
+					   description="DISPLAY_TITLE_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
 				
-				<field name="tabs"
-					type="radio"
-					default="1"
-					label="STACK_TABS"
-					description="">
-					<option value="0">STACK_NONE</option>
-					<option value="1">STACK_TITLES</option>
-					<option value="2">STACK_NUMBERS</option>
-					<option value="3">STACK_BULLETS</option>
-					</field>
+				<field name="link_title"
+					   type="list"
+					   default="1"
+					   label="LINK_TITLE"
+					   description="LINK_TITLE_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
 					
-				<field name="itemcount"
-					type="text"
-					default="10"
-					label="STACK_NUMBER_OF_ITEMS"
-					description="" />
-					
-				<field name="order" type="list" default="ordering ASC" label="STACK_ORDERING" description="">
-					<option value="items.ordering ASC">Manual_Ascending</option>
-					<option value="items.ordering DESC">Manual_Descending</option>
-					<option value="items.publish_up ASC">Publish_Date_Ascending</option>
-					<option value="items.publish_up DESC">Publish_Date_Descending</option>
-					<option value="items.created ASC">Created_Ascending</option>
-					<option value="items.created DESC">Created_Descending</option>
-					<option value="items.title ASC">Alphabetical_Ascending</option>
-					<option value="items.title DESC">Alphabetical_Descending</option>
-					</field>
+				<field name="truncate_title"
+					   type="list"
+					   default="0"
+					   label="TRUNCATE_TITLE"
+					   description="TRUNCATE_TITLE_DESCRIPTION" >
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
 				
-				<field name="arrows"
-					type="radio"
-					default="0"
-					label="STACK_ARROWS"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+				<field name="limit_title"
+					   type="text"
+					   default="60"
+					   label="LIMIT_TITLE"
+					   description="LIMIT_TITLE_DESCRIPTION" />
+					   
+				<field name="truncate_title_indicator"
+					   type="text"
+					   default="..."
+					   label="TRUNCATE_TITLE_INDICATOR"
+					   description="TRUNCATE_TITLE_INDICATOR_DESCRIPTION" />
+				
+				<field name="display_text"
+					   type="list"
+					   default="1"
+					   label="DISPLAY_TEXT"
+					   description="DISPLAY_TEXT_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
 					
-				<field name="lengthtitle"
-					type="text"
-					default="60"
-					label="STACK_LENGTH_TITLE"
-					description="" />
+				<field name="link_text"
+					   type="list"
+					   default="1"
+					   label="LINK_TEXT"
+					   description="LINK_TEXT_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
+				
+				<field name="truncate_text"
+					   type="radio"
+					   default="0"
+					   label="TRUNCATE_TEXT"
+					   description="TRUNCATE_TEXT_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
+						
+				<field name="limit_text"
+					   type="text"
+					   default="250"
+					   label="LIMIT_TEXT"
+					   description="LIMIT_TEXT_DESCRIPTION" />
+				
+				<field name="truncate_text_indicator"
+					   type="text"
+					   default="..."
+					   label="TRUNCATE_TEXT_INDICATOR"
+					   description="TRUNCATE_TEXT_INDICATOR_DESCRIPTION"/>
+				
 					
-				<field name="truntitle"
-					type="radio"
-					default="0"
-					label="STACK_TRUNC_TITLE"
-					description="" >
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+				<field name="item_count"
+					   type="text"
+					   default="10"
+					   label="NUMBER_OF_ITEMS"
+					   description="NUMBER_OF_ITEMS_DESCRIPTION" />
 					
-				<field name="lengthtext"
-					type="text"
-					default="250"
-					label="STACK_LENGTH_TEXT"
-					description="" />
-					
-				<field name="truntext"
-					type="radio"
-					default="0"
-					label="STACK_TRUNC_TEXT"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+				<field name="order" 
+					   type="list"
+					   default="ordering ASC"
+					   label="STACK_ORDERING"
+					   description="STACK_ODERING_DESCRIPTION">
+					   <option value="ordering">MANUAL</option>
+					   <option value="publish_up">PUBLISH_DATE</option>
+					   <option value="created">CREATED_ASCENDING</option>
+					   <option value="title">ALPHABETICAL_ASCENDING</option>
+				 	   </field>
+				
+				<field name="order_direction"
+					   type="list"
+					   default="DESC"
+					   label="ORDER_DIRECTION"
+					   description="ORDER_DIRECTION_DESCRIPTION">
+					   <option value="DESC">DESCENDING</option>
+					   <option value="ASCENDING">ASCENDING</option>
+					   </field>
 			</fieldset>
 			
 			<fieldset name="images">
-				<field name="image"
-					type="radio"
-					default="0"
-					label="STACK_IMAGES_ENABLED"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
-					
+				
+				<field name="images_enabled"
+					   type="list"
+					   default="0"
+					   label="IMAGES_ENABLED"
+					   description="IMAGES_ENABLED_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
+				
+				<field name="crop_enabled"
+					   type="list"
+					   default="1"
+					   label="CROP_ENABLED"
+					   description="CROP_ENABLED_DESCRIPTION">
+					   <option value="0">NO</option>
+					   <option value="1">YES</option>
+					   </field>
+				
 				<field name="horizontal_crop"
-					type="radio"
-					default="center"
-					label="STACK_IMAGES_ENABLED"
-					description="">
-					<option value="left">LEFT</option>
-					<option value="center">CENTER</option>
-					<option value="right">RIGHT</option>
-					</field>
+					   type="list"
+					   default="center"
+					   label="HORIZONTAL_CROP"
+					   description="HORIZONTAL_CROP_DESCRIPTION">
+					   <option value="left">LEFT</option>
+					   <option value="center">CENTER</option>
+					   <option value="right">RIGHT</option>
+					   </field>
 					
 				<field name="vertical_crop"
-					type="radio"
-					default="center"
-					label="STACK_IMAGES_ENABLED"
-					description="">
-					<option value="top">TOP</option>
-					<option value="middle">MIDDLE</option>
-					<option value="bottom">BOTTOM</option>
-					</field>
-					
-				<field name="imagewidth"
-					type="text"
-					default=""
-					label="STACK_IMAGE_WIDTH"
-					description="" />
+					   type="list"
+					   default="center"
+					   label="VERTICAL_CROP"
+					   description="VERTICAL_CROP_DESCRIPTION">
+					   <option value="top">TOP</option>
+					   <option value="middle">MIDDLE</option>
+					   <option value="bottom">BOTTOM</option>
+					   </field>
 				
-				<field name="imageheight"
-					type="text"
-					default=""
-					label="STACK_IMAGE_HEIGHT"
-					description="" />
+				<field name="resize_enabled"
+					   type="list"
+					   default="1"
+					   label="RESIZE_ENABLED"
+					   description="RESIZE_ENABLED_DESCRIPTION">
+					   <option value="0">NO</option>
+					   <option value="1">YES</option>
+					   </field>
+				
+				<field name="image_width"
+					   type="text"
+					   default=""
+					   label="IMAGE_WIDTH"
+					   description="IMAGE_WIDTH_DESCRIPTION" />
+				
+				<field name="image_height"
+					   type="text"
+					   default=""
+					   label="IMAGE_HEIGHT"
+					   description="IMAGE_HEIGHT_DESCRIPTION" />
 				
 			</fieldset>
 			
-			<fieldset name="animation">
-				<field name="autoplay"
-					type="radio"
-					default="0"
-					label="STACK_AUTOPLAY"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+			<fieldset name="rotator">
 			
-				<field name="transitiontime"
-					type="text"
-					default="0.25"
-					label="STACK_TRANSITION_TIME"
-					description="" />
-			
-				<field name="animated"
-					type="radio"
-					default="1"
-					label="STACK_ANIMATED"
-					description="">
-					<option value="0">STACK_NO</option>
-					<option value="1">STACK_YES</option>
-					</field>
+				<field name="display_tabs"
+					   type="list"
+					   default="1"
+					   label="DISPLAY_TABS"
+					   description="DISPLAY_TABS_DESCRIPTION">
+					   <option value="0">NONE</option>
+					   <option value="1">TITLES</option>
+					   <option value="2">NUMBERS</option>
+					   <option value="3">BULLETS</option>
+					   </field>
 				
-				<field name="displaytime"
-					type="text"
-					default="5"
-					label="STACK_DISPLAY_TIME"
-					description="" />
-					
-				<field name="transitiontype"
-					type="list"
-					default="linear"
-					label="STACK_TRANSITION_TYPE"
-					description="">
-					<option value="none">STACK_NONE</option>
-					<option value="crossFade">CROSSFADE</option>
-					<option value="fadeThroughBackground">FADETHROUGHBACKGROUND</option>
-					<option value="pushLeft">PUSHLEFT</option>
-					<option value="pushRight">PUSHRIGHT</option>
-					<option value="pushUp">PUSHUP</option>
-					<option value="pushDown">PUSHDOWN</option>
-					<option value="blindRight">BLINDRIGHT</option>
-					<option value="blindLeft">BLINDLEFT</option>
-					<option value="blindLeftFade">BLINDLEFTFADE</option>
-					<option value="blindRightFade">BLINDRIGHTFADE</option>
-					</field>
+				<field name="display_arrows"
+					   type="list"
+					   default="0"
+					   label="DISPLAY_ARROWS"
+					   description="DISPLAY_ARROWS_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
+				
+				<field name="animation_enabled"
+					   type="list"
+					   default="1"
+					   label="ANIMATION_ENABLED"
+					   description="ANIMATION_ENABLED_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
+				
+				<field name="auto_start"
+					   type="list"
+					   default="0"
+					   label="AUTO_START"
+					   description="AUTO_START_DESCRIPTION">
+					   <option value="0">STACK_NO</option>
+					   <option value="1">STACK_YES</option>
+					   </field>
+					   
+				<field name="transition_time"
+					   type="text"
+					   default="0.25"
+					   label="TRANSITION_TIME"
+					   description="TRANSITION_TIME_DESCRIPTION" />
+					   
+				<field name="display_time"
+					   type="text"
+					   default="5"
+					   label="DISPLAY_TIME"
+					   description="DISPLAY_TIME_DESCRIPTION" />
+				
+				<field name="transition"
+					   type="list"
+					   default="linear"
+					   label="TRANSITION"
+					   description="TRANSITION_DESCRIPTION">
+					   <option value="none">STACK_NONE</option>
+					   <option value="crossFade">CROSSFADE</option>
+					   <option value="fadeThroughBackground">FADETHROUGHBACKGROUND</option>
+					   <option value="pushLeft">PUSHLEFT</option>
+					   <option value="pushRight">PUSHRIGHT</option>
+					   <option value="pushUp">PUSHUP</option>
+					   <option value="pushDown">PUSHDOWN</option>
+					   <option value="blindRight">BLINDRIGHT</option>
+					   <option value="blindLeft">BLINDLEFT</option>
+					   <option value="blindLeftFade">BLINDLEFTFADE</option>
+					   <option value="blindRightFade">BLINDRIGHTFADE</option>
+					   </field>
 			</fieldset>
 			
 			<fieldset name="advanced">
+				
+				<field name="module_name"
+					   type="texT"
+					   default=""
+					   label="MODULE_NAME"
+					   description="MODULE_NAME_DESCRIPTION" />
+				
 				<field name="itemid"
-					type="text"
-					default=""
-					label="STACK_ITEM_ID"
-					description="" />
+					   type="text"
+					   default=""
+					   label="ITEM_ID"
+					   description="ITEM_ID_DESCRIPTION" />
 				
 				<field name="offset"
-					type="text"
-					default="0"
-					label="STACK_OFFSET"
-					description="" />
+					   type="text"
+					   default="0"
+					   label="OFFSET"
+					   description="OFFSET_DESCRIPTION" />
 				
 				<field name="cache"
-					type="list"
-					default="1"
-					label="STACK_CACHING"
-					description="">
-					<option value="0">STACK_NO CACHING</option>
-				 	<option value="1">USE GLOBAL</option>
-					</field>	
+					   type="list"
+					   default="1"
+					   label="CACHING"
+					   description="CACHING_DESCRIPTION">
+					   <option value="0">NO_CACHING</option>
+				 	   <option value="1">USE_GLOBAL</option>
+					   </field>	
 			</fieldset>
 		
 		</fields>

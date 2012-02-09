@@ -3,17 +3,16 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 $document = &JFactory::getDocument();
 
-$moduleId 		= ltrim($params->get('modulename'));
-$showtitle 		= $params->get('showtitle', true);
-$showtext 		= $params->get('showtext', true);
-$linktext 		= $params->get('linktext', true);
-$linktitle 		= $params->get('linktitle', true);
-$clearfix		= $params->get('clearfix', 'clear');
-$readmore		= $params->get('readmore', true);
+$module_name	= ltrim($params->get('module_name'));
+$display_title 	= $params->get('display_title', true);
+$display_text 	= $params->get('display_text', true);
+$link_text 		= $params->get('link_text', true);
+$link_title 	= $params->get('link_title', true);
+$read_more		= $params->get('display_read_more', true);
 
 ?>
 
-<div id="<?php echo $moduleId; ?>">
+<div id="<?php echo $module_name; ?>">
 	<ul>
 		<?php
 			foreach( $items as $i=>$item )
@@ -26,9 +25,9 @@ $readmore		= $params->get('readmore', true);
 				}
 				
 				// title
-				if ($showtitle) { 
+				if ($display_title) { 
 					// link title
-					if ($linktitle) {
+					if ($link_title) {
 						$item->title = '<a class="titleLink" href="'.$item->link.'">'.$item->title.'</a>';
 					}
 					
@@ -38,9 +37,9 @@ $readmore		= $params->get('readmore', true);
 				}
 				
 				// text
-				if ($showtext) { 
+				if ($display_text) { 
 					// link title
-					if ($linktext) {
+					if ($link_text) {
 						$item->introtext = '<a class="bodyLink" href="'.$item->link.'">'.$item->introtext.'</a>';
 					}
 					
@@ -49,7 +48,7 @@ $readmore		= $params->get('readmore', true);
 					$item->introtext = null;
 				}
 				
-				if ($readmore) {
+				if ($read_more) {
 					$item->readmore = '<a href="'.$item->link.'" class="readmore">'.JText::_('READ_MORE').'</a>';
 				} else {
 					$item->readmore = null;
@@ -68,4 +67,3 @@ $readmore		= $params->get('readmore', true);
 	</ul>
 </div>
 
-<div class="<?php echo $clearfix; ?>"></div>

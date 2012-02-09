@@ -16,28 +16,34 @@ class StackHelper extends JModuleHelper
 		$items = $this->_items;
 		
 		// params
-		$params 		 = $this->_params;
-		$moduleId		 = $params->get('modulename');
-		$itemid			 = $params->get('itemid', false);
-		$lengthtitle	 = $params->get('lengthtitle', 60);
-		$lengthtext		 = $params->get('lengthtext', 250);
-		$trunctitle		 = $params->get('trunctitle', '&hellip;');
-		$trunctext		 = $params->get('trunctext', '&hellip;');
-		$image			 = $params->get('image', 1);
+		$params						= $this->_params;
+		$module_name				= $params->get('module_name');
+		$itemid						= $params->get('itemid', false);
+		$limit_title				= $params->get('limit_title', 60);
+		$limit_text					= $params->get('limit_text', 250);
+		$truncate_title_indicator	= $params->get('truncate_title_indicator', '&hellip;');
+		$truncate_text_indicator	= $params->get('truncate_text_indicator', '&hellip;');
 				
 		foreach($items as $index=>$item)
 		{
+			// link
 			if ($itemid) {
 				$itemid = '&amp;Itemid='.$itemid;
 			}
-		
-			// link
-			$items[$index]->link = 'index.php?option=com_k2&amp;view=item&amp;id='.$item->id.$itemid;
 			
-			
-			if ($image == 1) {
-				$imgParams['path'] = null;
+			switch($params->get('content_provider', 'joomla')) {
+				case 'k2':
+					$items[$index]->link = 'index.php?option=com_k2&amp;view=item&amp;id='.$item->id.$itemid;
+					break;
 				
+				case 'joomla':
+				default:
+					$items[$index]->link = 'index.php?option=com_content&amp;view=item&amp;id='.$item->id.$itemid;
+					break;
+			}			
+			
+			// images
+			if ($params->get('images_enabled', 1)) {		
 				
 				// parse introtext for image
 				$image_path = $this->_getImagePath($item->introtext);
@@ -48,15 +54,15 @@ class StackHelper extends JModuleHelper
 				}
 			}
 			
-						// title
+			// title
 			$title = $item->title;
 			$title = $this->_stripHtmlTags($title);
-			$title = $this->_truncate($title, $lengthtitle, $trunctitle);
+			$title = $this->_truncate($title, $limit_title, $truncate_title_indicator);
 			$items[$index]->title = $title;
 						
 			// text
 			$introtext = $this->_stripHtmlTags($item->introtext);
-			$items[$index]->introtext = $this->_truncate($introtext, $lengthtext, $trunctext);
+			$items[$index]->introtext = $this->_truncate($introtext, $limit_text, $truncate_text_indicator);
 			
 			// Alias
 			if ($item->alias == '') {
@@ -120,15 +126,15 @@ class StackHelper extends JModuleHelper
 	 *
 	 * trim string to nearest word matching character length
 	 */
-	protected function _truncate($text, $length, $trunc)
+	protected function _truncate($string, $limit, $indicator)
 	{
-		if (strlen($text) > $length) {
-			$length -= strlen($trunc);
-			$text = strrev(strstr(strrev(substr($text, 0, $length)), ' '));
-			$text = trim($text).$trunc;
+		if (strlen($string) > $limit) {
+			$limit -= strlen($indicator);
+			$string = strrev(strstr(strrev(substr($string, 0, $limit)), ' '));
+			$string = trim($string).$indicator;
 		}
 		
-		return $text;
+		return $string;
 	}
 	
 	/**
@@ -155,6 +161,8 @@ class StackHelper extends JModuleHelper
 			return null;
 		}
 		
+		$params = $this->_params;
+		
 		jimport('joomla.filesystem.file');
 		
 		$filepath = pathinfo($path);
@@ -168,11 +176,11 @@ class StackHelper extends JModuleHelper
 		}
 		
 		// image dimensions
-		$imageWidth	 = $this->_params->get('imagewidth');
-		$imageHeight = $this->_params->get('imageheight');
+		$image_width	 = $this->_params->get('image_width', 200);
+		$image_height = $this->_params->get('image_height', 200);
 		
 		// modify filename with dimensions added
-		$filename = $filename.'-'.$imageWidth.'x'.$imageHeight.'.'.$extension;
+		$filename = $filename.'-'.$image_width.'x'.$image_height.'.'.$extension;
 		
 		// check cache for file
 		if (JFile::exists($cache_path.$filename)) {
@@ -182,60 +190,67 @@ class StackHelper extends JModuleHelper
 		// import image library
 		jimport('joomla.image.image');
 		
-		$imageProperties = JImage::getImageFileProperties($path);
-		
+		// create new image
 		$image = new JImage;
 		$image->loadFile($path);
-		$image->resize($imageWidth, $imageHeight, false, 3);
-				
-		$horizontal_crop = $this->_params->get('horizontal_crop', 'left');
-		$vertical_crop	 = $this->_params->get('vertical_crop', 'top');
 		
-		switch($horizontal_crop) {
-			case 'left':
-				$crop_h = 0;
-				break;
-				
-			case 'center':
-				$crop_h = floor(($image->getWidth() - $imageWidth) / 2);
-				break;
-				
-			case 'right':
-				$crop_h = $image->getWidth() - $imageWidth;
-				break;
+		// resize
+		if ($params->get('resize_enabled', 1)) {
+			$image->resize($image_width, $image_height, false, 3);
 		}
 		
-		switch($vertical_crop) {
-			case 'top':
-				$crop_v = 0;
-				break;
-				
-			case 'middle':
-				$crop_v = floor(($image->getHeight() - $imageHeight) / 2);
-				break;
-				
-			case 'bottom':
-				$crop_v = $image->getHeight() - $imageHeight;
-				break;
+		// crop
+		if ($params->get('crop_enabled', 1)) {
+			$horizontal_crop = $this->_params->get('horizontal_crop', 'left');
+			$vertical_crop	 = $this->_params->get('vertical_crop', 'top');
+			
+			switch($horizontal_crop) {
+				case 'left':
+					$crop_h = 0;
+					break;
+					
+				case 'center':
+					$crop_h = floor(($image->getWidth() - $image_width) / 2);
+					break;
+					
+				case 'right':
+					$crop_h = $image->getWidth() - $image_width;
+					break;
+			}
+			
+			switch($vertical_crop) {
+				case 'top':
+					$crop_v = 0;
+					break;
+					
+				case 'middle':
+					$crop_v = floor(($image->getHeight() - $image_height) / 2);
+					break;
+					
+				case 'bottom':
+					$crop_v = $image->getHeight() - $image_height;
+					break;
+			}
+			
+			// center cropping
+			$x = true; $y = false;
+			if ($image_width < $image_height) {
+				$x = false;
+				$y = true;
+			}
+			
+			// width is largest = cropping Height
+			if ($x) {
+				$top = floor(($image_width - $image_height) / 2);
+				$left = 0;
+			} else {
+				$top = 0;
+				$left = floor(($image_height - $image_width) / 2);
+			}
+			
+			$image->crop($image_width, $image_height, $crop_h, $crop_v, false);
 		}
 		
-		// center cropping
-		$x = true; $y = false;
-		if ($imageWidth < $imageHeight) {
-			$x = false;
-			$y = true;
-		}
-		
-		// width is largest = cropping Height
-		if ($x) {
-			$top = floor(($imageWidth - $imageHeight) / 2);
-			$left = 0;
-		} else {
-			$top = 0;
-			$left = floor(($imageHeight - $imageWidth) / 2);
-		}
-		
-		$image->crop($imageWidth, $imageHeight, $crop_h, $crop_v, false);
 		$image->toFile($cache_path.$filename, IMAGETYPE_JPEG, array('quality' => 70));
 		
 		return "cache/mod_stacks/".$filename;

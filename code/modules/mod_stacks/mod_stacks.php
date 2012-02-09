@@ -17,7 +17,7 @@ switch($params->get('content_provider', 'joomla')) {
 }
 
 // add some fun to the params
-$params->set('module_name', $content_helper->generateUniqueCode("10"));
+$params->set('module_name', $params->get('module_name', $content_helper->generateUniqueCode("10")));
 
 // pass params to helpers
 $content_helper->construct($params);

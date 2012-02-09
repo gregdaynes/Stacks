@@ -4,27 +4,27 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 $document = &JFactory::getDocument();
 
 $moduleId = ltrim($params->get('module_name'));
-$autoplay = $params->get('autoplay', 1);
+$autoplay = $params->get('auto_start', 1);
 if ($autoplay == 0) {
 	$autoplay = 'false';
 } else {
 	$autoplay = 'true';
 }
 
-$arrows			= $params->get('arrows');
-$tabs			= $params->get('tabs');
-$displaytime	= $params->get('displaytime');
-$animated		= $params->get('animated');
-$transtime		= $params->get('transitiontime');
-$transition		= $params->get('transitiontype');
-$linktext		= $params->get('linktext', false);
-$linktitle		= $params->get('linktitle', true);
-$showtitle		= $params->get('showtitle', true);
-$showtext		= $params->get('showtext', true);
-$readmore		= $params->get('readmore', true);
+$arrows			= $params->get('display_arrows');
+$tabs			= $params->get('display_tabs');
+$displaytime	= $params->get('display_time');
+$animated		= $params->get('animation_enabled');
+$transtime		= $params->get('transition_time');
+$transition		= $params->get('transition');
+$linktext		= $params->get('link_text', false);
+$linktitle		= $params->get('link_title', true);
+$showtitle		= $params->get('display_title', true);
+$showtext		= $params->get('display_text', true);
+$readmore		= $params->get('display_read_more', true);
 
 if ($params->get('moduleId')) {
-	$randVar = ltrim($params->get('moduleId'));
+	$randVar = ltrim($params->get('module_name'));
 } else {
 	$randVar = 'id'.$content_helper->generateUniqueCode("5");
 }
