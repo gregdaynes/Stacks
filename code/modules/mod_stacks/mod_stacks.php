@@ -32,5 +32,7 @@ if ($items) {
 	require(JModuleHelper::getLayoutPath('mod_stacks', $params->get('template', 'stack')));
 }
 
+//exit;
+
 // no items to display
 return;

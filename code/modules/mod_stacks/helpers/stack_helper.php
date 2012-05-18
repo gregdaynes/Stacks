@@ -2,20 +2,31 @@
 
 class StackHelper extends JModuleHelper
 {
-	var $_params = null; // object
-	var $_items = null;
+	/**
+	 * vars
+	 */
+	var $_params = null;
+	var $_items  = null;
 	
-	// set params
-	public function construct($params)
-	{
+	/**
+	 * function construct
+	 * set parameters to all the classes
+	 * @since  1.0
+	 * @access public
+	 */
+	public function construct($params) {
 		$this->_params = $params;
 	}
 	
+	/**
+	 * function processItems
+	 * clean, organize content items
+	 * @since 1.0
+	 * @access public
+	 */
 	public function processItems()
 	{
 		$items = $this->_items;
-		
-		// params
 		$params						= $this->_params;
 		$module_name				= $params->get('module_name');
 		$itemid						= $params->get('itemid', false);
@@ -26,34 +37,13 @@ class StackHelper extends JModuleHelper
 				
 		foreach($items as $index=>$item)
 		{
-			// link
-			if ($itemid) {
-				$itemid = '&amp;Itemid='.$itemid;
-			}
 			
-			switch($params->get('content_provider', 'joomla')) {
-				case 'k2':
-					$items[$index]->link = 'index.php?option=com_k2&amp;view=item&amp;id='.$item->id.$itemid;
-					break;
-				
-				case 'joomla':
-				default:
-					$items[$index]->link = 'index.php?option=com_content&amp;view=item&amp;id='.$item->id.$itemid;
-					break;
-			}			
-			
+			// links
+			$items[$index]->link = $this->_buildLink($item);
+		
 			// images
-			if ($params->get('images_enabled', 1)) {		
-				
-				// parse introtext for image
-				$image_path = $this->_getImagePath($item->introtext);
-								
-				if ($image_path) {
-					$image_path = $this->_imageProcessor($image_path[0]);
-					$items[$index]->image = $image_path;
-				}
-			}
-			
+			$items[$index]->image = $this->_processImages($item);
+						
 			// title
 			$title = $item->title;
 			$title = $this->_stripHtmlTags($title);
@@ -73,6 +63,48 @@ class StackHelper extends JModuleHelper
 		}
 		
 		return $items;
+	}
+	
+	private function _processImages($item)
+	{	
+		if ($this->_params->get('images_enabled', 0)) {		
+			
+			// parse introtext for image
+			$image_path = $this->_getImagePath($item->introtext);
+			
+			if ($image_path) {
+				$image_path = $this->_imageProcessor($image_path);
+				
+				return $image_path;
+			}
+			
+			return null;
+		}
+		
+		return null;
+		
+	}
+	
+	private function _buildLink($item)
+	{
+		if ($itemid = $this->_params->get('itemid', null)) {
+			$itemid = '&Itemid='.$itemid;
+		
+		
+			switch($this->_params->get('content_provider', 'joomla')) {
+				case 'k2':
+					return 'index.php?option=com_k2&view=item&id='.$item->id.$itemid;
+					break;
+				
+				case 'joomla':
+				default:
+					return 'index.php?option=com_content&view=article&id='.$item->id.$itemid;
+					break;
+			}
+		}
+		
+		// links not enabled
+		return null;
 	}
 	
 	/**
@@ -148,7 +180,11 @@ class StackHelper extends JModuleHelper
 		$string = $match;
 		$string = preg_replace( '/.*<img.*src="(.*?)".*?>.*/', '\1', $string );	
 		
-		return $string;
+		if ($string) {
+			return $string[0];
+		}
+		
+		return null;
 	}
 	
 	/**

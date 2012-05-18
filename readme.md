@@ -14,6 +14,7 @@ list of things I intend to do:
 - complete joomla integration for new params
 - clean up templates
 - clean up helpers
+- router
 
 ### Documentation:
 - helpers
